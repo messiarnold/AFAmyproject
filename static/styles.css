@@ -1,78 +1,309 @@
-/* styles.css */
-
-/* Reset some default styles */
-body, h1, h2, form {
-    margin: 0;
-    padding: 0;
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    color: white;
 }
 
-body {
-    font-family: 'Helvetica Neue', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+/* main sections */
+body{
+    background-color: rgba(0, 0, 0, 0.950);
+}
+header{
+    font-family: sans-serif;
+}
+#current{
+    color: #3a8ba1;
 }
 
-h1 {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 20px;
+
+
+/* header navbar style */
+.navbar{
+    padding: 100px;
+}
+ul.navbar {
+    list-style-type: none;
+    display: flex;
+    position:fixed;
+    width: 100%;
+    align-items: center;
+    background-color: black;
+    padding: 15px; 
+    top: 0%;
 }
 
-form {
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 20px;
+ul.navbar li {
+    margin-right: 40px; 
+}
+
+/* Align items to the right */
+.right {
+    margin-left: auto;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #55caea;
+    font-size: 1.2em;
+}
+
+li.underline a{
+    font-weight: bold;
+    border-bottom: 2px solid transparent ; 
+    transition: border-color 0.6s;
+}
+.underline a:hover{
+    border-color: #3a8ba1;
+    color: #3a8ba1;
+}
+
+
+/* logo style */
+.logo{
+    margin: 0%;
+    padding: 0%;
+}
+
+
+/* login style */
+.login{
+    border: 2px white solid;
+    border-radius: 25px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.login a:hover{
+    color: #55caea;
+}
+.login:hover{
+    border-color: #3a8ba1;
+}
+
+/* login container style */
+.container {
+    background-color: #ffffff27;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
     margin: 0 auto;
-    width: 80%;
-    max-width: 500px;
+    padding: 20px;
     text-align: center;
+    margin-top: 150px;
 }
 
-form textarea {
-    margin: 20px;
+.container h1{
+    color: #55caea;
+}
+
+.container form {
+    margin-top: 20px;
+}
+
+.container label {
+    display: block;
+    margin-bottom: 6px;
+    color: #55caea;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    resize: vertical;
+    margin-bottom: 10px;
+    background-color: black;
+    color: #55caea;
+    font-size: 1.4em;
+    border: 1px solid #000000;
+    border-radius: 4px;
 }
 
-form input[type="submit"] {
+.container button , input[type="submit"]{
     background-color: #007BFF;
     color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    border-radius: 4px;
 }
 
-form input[type="submit"]:hover {
+.container button:hover {
     background-color: #0056b3;
 }
 
-#feedback {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 20px auto;
+.container a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+a:hover {
+    color: #0056b3;
+}
+.container p{
+    color: #55caea;
+}
+
+
+/* home style */
+.home_main_text{
+    color: white;
+    font-size: 48px;
+    margin-top: 250px;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.home_main_text button{
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+
+/* tasks style */
+.tasks{
+    margin-top: 100px;
     width: 80%;
-    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tasks_buttons{
+    margin-top: 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    text-align: center;
+    height: 200px;
+    overflow: hidden;
+}
+.tasks_box{
+    padding: 55px;
+    height: 100%;
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+.tasks_box p{
+    padding-top: 15px;
+}
+#task_box{
+    border-radius: 20px;
+    background-color: #55caea;
+}
+.tasks_box a{
+    color: #000000;
+    text-decoration: none;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 4em;
 }
 
-#feedback h2 {
-    margin-bottom: 10px;
-    font-size: 18px;
+
+/* menu style */
+.menu button{
+    background-color: #000000;
+    border: none;
+}
+.menu a{
+    display: block;
+    padding: 20px;
+    border-bottom: 2px solid black;
+}
+.menu .menu_content{
+    display: none;
+    background-color: #151515;
+    position: absolute;
+    width: 20%;
+}
+.menu:hover .menu_content{
+    display: block;
 }
 
-#feedback pre {
-    font-size: 14px;
-    white-space: pre-wrap;
-    text-align: right;
+
+/* Style the progress bar */
+.progress-bar-container {
+    width: 50%; 
+    margin: 0 auto; 
+    margin-top: 120px;
+    border: 2px black solid;
+    border-radius: 20px;
+    padding: 15px; 
+    background-color: #ffffff27;
+}
+
+/* Style the progress bar */
+.progress-bar {
+    width: 100%; 
+    height: 30px;
+    background-color: black;
+    position: relative;
+    border-radius: 20px;
+    border-bottom: 20px;
+}
+
+/* Style the progress text */
+.progress { 
+    height: 100%;
+    background-color: #4caf50;
+    text-align: center;
+    line-height: 30px;
+    color: #000000;
+    font-weight: bold;
+    position: absolute;
+    border-radius: 20px;
+    transition: width 1s;
+}
+
+
+/* Style the form and text area */
+.code_form {
+    background-color: #ffffff27;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 40px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.code_form textarea {
+    width: 90%;
+    max-width: 90%;
+    color: #55caea;
+    background-color: black;
+    padding: 20px;
+    border-radius: 20px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+input[type="submit"]{
+    margin-top: 20px;
+}
+
+
+/* Style the feedback section */
+.feedback_container {
+    background-color: #ffffff27;
+    border-radius: 20px;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 1.1em;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.feedback_container h2 {
+    margin: 0; 
+    font-family: monospace;
+}
+
+.feedback_container pre {
+    margin: 0; 
 }
