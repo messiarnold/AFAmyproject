@@ -8,13 +8,13 @@ from tests import *
 
 # Create a connection to the MySQL database
 conn = mysql.connector.connect(
-    host='localhost',      # Replace with your MySQL server host
-    user='root',  # Replace with your MySQL username
-    password='ariel7290',  # Replace with your MySQL password
-    database='mydb'  # Replace with the name of your database
+    host='localhost',      
+    user='root',  
+    password='ariel7290',  
+    database='mydb'  
 )
 
-# Create a cursor object to interact with the database
+
 cursor = conn.cursor()
 
 app = Flask(__name__)
@@ -25,7 +25,7 @@ bcrypt = Bcrypt(app)
 app.secret_key = os.urandom(24)
 
 
-
+# tasks menu you can add your tasks here 
 tasks = {
     'task_1': {
         'title': 'Task 1',
@@ -141,22 +141,25 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 
+# home route
 @app.route("/")
 @app.route('/home' )
 def home():
     return render_template('home.html',current = "home")
 
+
+# python content route
 @app.route('/python')
 def python():
     return render_template('python.html', current = "python",language = "python")
 
 @app.route('/python/tasks', methods=['GET', 'POST'])
-#@login_required
+# @login_required in a comment for development issues
 def tasks_page():
     return render_template('tasks.html',tasks=tasks,current = "python")
 
 @app.route('/python/tasks/<task_name>', methods=['GET', 'POST'])
-#@login_required
+# @login_required in a comment for development issues
 def task_page(task_name):
     task = tasks.get(task_name)
     if task is None:
@@ -169,22 +172,29 @@ def task_page(task_name):
 
     return render_template('task.html', task=task,task_progress=task_progress[task_name],current = "python")
 
+# python videos route
 @app.route('/python/videos')
 def python_videos():
     return render_template('videos_python.html',current = "python")
 
+
+# java route 
 @app.route('/java')
 def java():
     return render_template('java.html',current = "java",language="java")
 
+# java videos route 
 @app.route('/java/videos')
 def java_videos():
     return render_template('videos_java.html',current = "java")
 
+
+# about route
 @app.route('/about')
 def about():
     return render_template('about.html',current="about")
 
+# error handler <page not found 404>
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html"), 404

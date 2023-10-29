@@ -1,5 +1,6 @@
 import subprocess
 
+# task_progress menu for the progress bar, add your tasks here
 task_progress = {
     'task_1': 0,
     'task_2': 0,
@@ -7,10 +8,12 @@ task_progress = {
     'task_2.2':0,
     'task_2.3':0,
     'task_2.4':0,
-    'task_12': 0,  # Initialize progress for Task 1 to 0%
-    'task_13': 0,  # Initialize progress for Task 2 to 0%
+    'task_12': 0,  
+    'task_13': 0,  
 }
 
+
+# a function that checks for input and empty code 
 def check_for_input_and_empty_code(code,task):
     if code == '':
         feedback = 'אתה צריך להכניס קוד'
@@ -23,6 +26,8 @@ def check_for_input_and_empty_code(code,task):
         feedback = ''
     return feedback
 
+
+# functions that evaluate all the tasks
 def evaluate_task_1(code):
     feedback = check_for_input_and_empty_code(code,'task_1')
     if feedback != '':
