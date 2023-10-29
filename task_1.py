@@ -10,7 +10,7 @@ from tests import *
 conn = mysql.connector.connect(
     host='localhost',      
     user='root',  
-    password='ariel7290',  
+    password='password',  
     database='mydb'  
 )
 
