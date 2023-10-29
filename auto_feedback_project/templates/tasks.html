@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="tasks">
+        {% for task in tasks %}
+        <div class="tasks_buttons">
+            <div class="tasks_box" id="task_box">
+                <a href="/python/tasks/{{ task }}">{{tasks.get(task)['title']}}</a>
+            </div>
+            <div class="tasks_box">
+                <p>{{tasks.get(task)['description']}}</p>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}

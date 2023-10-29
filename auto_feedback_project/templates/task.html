@@ -1,0 +1,24 @@
+{% extends 'layout.html'%}
+{% block content %}
+<div class="progress-bar-container">
+    <div class="progress-bar">
+        <div class="progress" style="width: {{ task_progress }}%";>{{ task_progress }}%</div>
+    </div>
+</div>
+<br>
+<div class="code_form">
+    <form method="POST">
+        <textarea name="code" rows="10" cols="50">{% if code %}{{ code }}{% endif %}</textarea><br>
+        <input type="submit" value="Submit Code"><br><br>
+    </form>
+</div>
+<div class="feedback_container">
+    <h2>Feedback:</h2>
+    {% if feedback %}
+        <pre>{{ feedback }}</pre>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+

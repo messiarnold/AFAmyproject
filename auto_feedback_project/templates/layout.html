@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="icon" href="icon.svg" id="icon">
+    <script src="https://kit.fontawesome.com/c6455e8c9a.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <ul class="navbar">
+            <li>
+                <div class="menu">
+                    <button><a href=""><i class="fa-solid fa-bars fa-xl"></i></a></button>
+                    <div class="menu_content">
+                        <a href="/logout" id="logout">logout</a>
+                        <a href="">test</a>
+                    </div>
+                </div>
+            </li>
+            <li class="underline"><a href="/home" {% if current == "home"%}  id = "current"{% endif %}>Home</a></li>
+            <li class="underline"><a href="/about" {% if current  ==  "about"%}  id = "current"{% endif %}>About</a></li>
+            <li class="underline"><a href="/python" {% if current == "python" %}  id = "current" {% endif %} >Python</a></li>
+            <li class="underline"><a href="/java" {% if current == "java" %}  id = "current" {% endif %} >Java</a></li>
+            <li class="underline"><a href="/class" {% if current == class %}  id = "current" {% endif  %} >class</a></li>
+            <li class="right">
+                {% if 'logged_in' in session %}
+                    <li><h2 href="">Welcome {{ session['username'] }}!</h2></li>
+                {% else %}
+                    <li class="login"><a href="/login">Login</a></li>
+                    <li class="login"><a href="/register">SignUp</a></li>
+                {% endif %}
+                <li><a href=""><img class="logo" src="../../static/logo.svg" width="160" height="40"></a></li>
+            </li>
+        </ul>
+    </header>
+    {% block content %}{% endblock %}
+</body>
+</html>

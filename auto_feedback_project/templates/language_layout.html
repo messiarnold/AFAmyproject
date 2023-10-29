@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="tasks">
+    <div class="tasks_buttons">
+        <div class="tasks_box" id="task_box">
+            <a {%if language == 'python'%}href="/python/tasks"{% endif %} {%if language == 'java'%}href="/java/tasks"{% endif %}>tasks</a>
+        </div>
+        <div class="tasks_box">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo distinctio vel beatae. Distinctio facilis, voluptates sunt beatae saepe unde deserunt ducimus, id nihil eveniet quas dolorum fuga debitis veniam necessitatibus!</p>
+        </div>
+    </div>
+    <div class="tasks_buttons">
+        <div class="tasks_box" id="task_box">
+            <a {%if language == 'python'%}href="/python/videos"{% endif %} {%if language == 'java'%}href="/java/videos"{% endif %}>videos</a>
+        </div>
+        <div class="tasks_box">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo distinctio vel beatae. Distinctio facilis, voluptates sunt beatae saepe unde deserunt ducimus, id nihil eveniet quas dolorum fuga debitis veniam necessitatibus!</p>
+        </div>
+    </div>
+    <div class="tasks_buttons">
+        <div class="tasks_box" id="task_box">
+            <a {%if language == 'python'%}href="/python/bonus"{% endif %} {%if language == 'java'%}href="/java/bonus"{% endif %}>bonus</a>
+        </div>
+        <div class="tasks_box">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo distinctio vel beatae. Distinctio facilis, voluptates sunt beatae saepe unde deserunt ducimus, id nihil eveniet quas dolorum fuga debitis veniam necessitatibus!</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,1 @@
+account##user name##password@@amazon##yoram sheftel##y1t6g3v9b0@@ebay##moshe balanga##zs64fg63q9@@gmail##YosiChoen@gmail.com##AS43fg63q9
