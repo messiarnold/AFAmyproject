@@ -2,6 +2,7 @@ import traceback
 from functools import wraps 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_bcrypt import Bcrypt
+from forms import RegistrationForm, LoginForm
 import os
 import mysql.connector
 from tests import *
@@ -18,6 +19,8 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 
 app = Flask(__name__)
+
+#app.config['SECRET_KEY'] = ''
 
 bcrypt = Bcrypt(app)
 
@@ -95,43 +98,51 @@ def login_required(f):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-
-        # Use a parameterized query to insert data
-        insert_query = "INSERT INTO users (username, password) VALUES (%s, %s)"
-        data = (username, hashed_password)
-
-        cursor.execute(insert_query, data)
-        conn.commit()
-        
-        flash('Your account has been created! You can now log in.', 'success')
+    form = RegistrationForm()
+    if form.validate_on_submit():
         return redirect(url_for('login'))
-    return render_template('register.html')
+    return render_template('register.html',title='register',form=form,current='home')
+#def register():
+#    if request.method == 'POST':
+#        username = request.form['username']
+#        password = request.form['password']
+#        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+#
+#        # Use a parameterized query to insert data
+#        insert_query = "INSERT INTO users (username, password) VALUES (%s, %s)"
+#        data = (username, hashed_password)
+#
+#        cursor.execute(insert_query, data)
+#        conn.commit()
+#        
+#        flash('Your account has been created! You can now log in.', 'success')
+#        return redirect(url_for('login'))
+#    return render_template('register.html')
 
 # User login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        # Use a parameterized query to fetch user data
-        select_query = "SELECT * FROM users WHERE username = %s"
-        data = (username,)
-        cursor.execute(select_query, data)
-        user = cursor.fetchone()
-
-        if user and bcrypt.check_password_hash(user[2], password):
-            session['logged_in'] = True
-            session['username'] = username 
-            return redirect(url_for('home'))
-        else:
-            flash('Login failed. Please check your credentials.', 'danger')
-
-    return render_template('login.html',current = "home")
+    form = LoginForm()
+    return render_template('login.html',title='Login',form=form,current='home')
+#def login():
+#    if request.method == 'POST':
+#        username = request.form['username']
+#        password = request.form['password']
+#
+#        # Use a parameterized query to fetch user data
+#        select_query = "SELECT * FROM users WHERE username = %s"
+#        data = (username,)
+#        cursor.execute(select_query, data)
+#        user = cursor.fetchone()
+#
+#        if user and bcrypt.check_password_hash(user[2], password):
+#            session['logged_in'] = True
+#            session['username'] = username 
+#            return redirect(url_for('home'))
+#        else:
+#            flash('Login failed. Please check your credentials.', 'danger')
+#
+#    return render_template('login.html',current = "home")
 
 # User logout route
 @app.route('/logout')

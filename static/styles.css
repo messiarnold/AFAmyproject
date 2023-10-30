@@ -15,8 +15,33 @@ header{
 #current{
     color: #3a8ba1;
 }
-
-
+.no-border{
+    border: none;
+}
+.btn-center{
+    margin: 0 auto;
+}
+.text-center{
+    text-align: center;
+}
+.text-xxl{
+    font-size: 4em;
+}
+.text-xl{
+    font-size: 3em;
+}
+.text-l{
+    font-size: 2.2em;
+}
+.text-m{
+    font-size: 1.4em;
+}
+.text-s{
+    font-size: 0.8em;
+}
+.text-xs{
+    font-size: 0.4em;
+}
 
 /* header navbar style */
 .navbar{
@@ -307,3 +332,36 @@ input[type="submit"]{
 .feedback_container pre {
     margin: 0; 
 }
+
+/* register new css */
+
+.content-section{
+    background-color: #151515;
+    margin: 0 auto;
+    margin-top: 150px;
+    width: 40%;
+    border: 2px white solid;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.form-group{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-control{
+    margin-left: 20px;
+}
+
+.form-control-label{
+    font-family: monospace;
+}
+
+.form-check{
+    margin-top: 10px;
+}
+

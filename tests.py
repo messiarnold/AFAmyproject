@@ -13,7 +13,7 @@ task_progress = {
 }
 
 
-# a function that checks for input and empty code 
+# a function that checks for input and empty code
 def check_for_input_and_empty_code(code,task):
     if code == '':
         feedback = 'אתה צריך להכניס קוד'
@@ -27,7 +27,7 @@ def check_for_input_and_empty_code(code,task):
     return feedback
 
 
-# functions that evaluate all the tasks
+# functions that evaluate all the tasks:
 def evaluate_task_1(code):
     feedback = check_for_input_and_empty_code(code,'task_1')
     if feedback != '':
@@ -79,7 +79,7 @@ def evaluate_task_2_1(code):
         return feedback
     else:
         try:
-            user_input = "admin"  # Combine the two inputs with a newline
+            user_input = "admin"  
             result = subprocess.run(['python', '-c', code], input=user_input, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             if result.returncode == 0:
                 output = result.stdout.strip().lower()
@@ -104,7 +104,7 @@ def evaluate_task_2_2(code):
         return feedback
     else:
         try:
-            user_input = "123456789"  # Combine the two inputs with a newline
+            user_input = "123456789" 
             result = subprocess.run(['python', '-c', code], input=user_input, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             if result.returncode == 0:
                 output = result.stdout.strip().lower()
@@ -134,7 +134,7 @@ def evaluate_task_2_3(code):
         task_progress['task_2.3'] = 0
     else:
         try:
-            user_input = "249"  # Combine the two inputs with a newline
+            user_input = "249" 
             result = subprocess.run(['python', '-c', code], input=user_input, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             if result.returncode == 0:
                 output = result.stdout.strip()
@@ -176,21 +176,16 @@ def evaluate_task_2_4(code):
             
 def evaluate_task_12(code):
     try:
-        # Check if the code contains input-related statements
         if 'input(' in code:
             feedback = "התוכנית לא אמורה לקחת קלט"
         else:
-            # Execute the student's code within a controlled environment
             exec_globals = {}
             exec_locals = {}
             exec(code, exec_globals, exec_locals)
 
-            # Check if the required functions are defined
             if 'addition' in code and 'subtraction' in code:
-                # Call the functions and capture their results
                 result_addition = exec_locals['addition'](2, 3)
                 result_subtraction = exec_locals['subtraction'](5, 2)
-                # Provide feedback based on the results
                 feedback = f"Addition result: {result_addition}, Subtraction result: {result_subtraction}"
                 if result_addition != 5:
                     feedback = 'פונקציית ההוספה שלך לא עובדת'
@@ -204,7 +199,6 @@ def evaluate_task_12(code):
                 if result_addition == 5 and result_subtraction == 3:
                     feedback = "!!הפונקציות שלך עובדות הצלחת במשימה" 
                     task_progress['task_12'] = 100
-                
             else:
                 feedback = "אין לך בקוד פונקציית חיבור ופונקציית חיסור או שלא קראת לפונקציות בשמות הנכונים"
                 task_progress['task_12'] = 0
@@ -212,9 +206,7 @@ def evaluate_task_12(code):
         feedback = "יש לך טעות בכתיבה של הקוד"
         task_progress['task_12'] = 0
     except Exception as e:
-        # Capture any exceptions that occur during code execution
         feedback = f"Error: {str(e)}\n{print(e)}"
-
     return feedback
 
 def evaluate_task_13(code):
@@ -222,15 +214,11 @@ def evaluate_task_13(code):
         feedback = 'אתה צריך להכניס קוד'
         return feedback
     try:
-        # Receive student code from the web form
-
-        # Simulate user input and execute the code
-        simulated_input_1 = "10c"  # Simulated user input
-        simulated_input_2 = "50f" # Convert it to a string
+        simulated_input_1 = "10c"  
+        simulated_input_2 = "50f" 
         result_1 = subprocess.run(['python', '-c', code], input=simulated_input_1, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         result_2 = subprocess.run(['python', '-c', code], input=simulated_input_2, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if result_1.returncode == 0 and result_2.returncode == 0:
-            # The code executed successfully
             output_result_1 = result_1.stdout.strip()
             output_result_2 = result_2.stdout.strip()
             if "50" in output_result_1 and "10" in output_result_2:
@@ -246,7 +234,6 @@ def evaluate_task_13(code):
                 task_progress['task_13'] = 0
                 feedback = "התוכנית שלך לא נכונה אולי טעית בנוסחה"
         else:
-            # An error occurred during code execution
             task_progress['task_13'] = 0
             feedback = "שגיאה בעת הרצת הקוד אולי טעית בכתיבה של הקוד" 
     except SyntaxError as e:
