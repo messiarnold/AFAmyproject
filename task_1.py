@@ -127,7 +127,6 @@ def login():
         if user and bcrypt.check_password_hash(user[2], password):
             session['logged_in'] = True
             session['username'] = username 
-            #flash('You have been logged in!', 'success')
             return redirect(url_for('home'))
         else:
             flash('Login failed. Please check your credentials.', 'danger')
@@ -138,7 +137,6 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
-    flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 
 # home route
@@ -153,10 +151,12 @@ def home():
 def python():
     return render_template('python.html', current = "python",language = "python")
 
+
 @app.route('/python/tasks', methods=['GET', 'POST'])
 # @login_required in a comment for development issues
 def tasks_page():
     return render_template('tasks.html',tasks=tasks,current = "python")
+
 
 @app.route('/python/tasks/<task_name>', methods=['GET', 'POST'])
 # @login_required in a comment for development issues
@@ -164,13 +164,13 @@ def task_page(task_name):
     task = tasks.get(task_name)
     if task is None:
         return "Task not found", 404
-
     if request.method == 'POST':
         code = request.form['code']
         feedback = task['test_function'](code)
         return render_template('task.html', task=task, code=code, feedback=feedback, task_progress=task_progress[task_name],current = "python")
 
     return render_template('task.html', task=task,task_progress=task_progress[task_name],current = "python")
+
 
 # python videos route
 @app.route('/python/videos')
@@ -183,6 +183,7 @@ def python_videos():
 def java():
     return render_template('java.html',current = "java",language="java")
 
+
 # java videos route 
 @app.route('/java/videos')
 def java_videos():
@@ -194,11 +195,11 @@ def java_videos():
 def about():
     return render_template('about.html',current="about")
 
+
 # error handler <page not found 404>
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html"), 404
-
 
 
 if __name__ == '__main__':
