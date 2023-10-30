@@ -1,32 +1,44 @@
-import traceback
-from functools import wraps 
+from functools import wraps
+from datetime import datetime 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm
-import os
-import mysql.connector
+
 from tests import *
 
-# Create a connection to the MySQL database
-conn = mysql.connector.connect(
-    host='localhost',      
-    user='root',  
-    password='password',  
-    database='mydb'  
-)
-
-
-cursor = conn.cursor()
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '84hfurh98fhwhe89ihds98yh93wh9dha8deh89weh9'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
-#app.config['SECRET_KEY'] = ''
+db = SQLAlchemy(app)
 
-bcrypt = Bcrypt(app)
+class User(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    username = db.Column(db.String(20),unique=True,nullable=False)
+    email = db.Column(db.String(40),unique=True,nullable=False)
+    password = db.Column(db.String(60),nullable=False)
+    
+    def __repr__(self):
+        return f'User("{self.username}", "{self.email}")'
+    
+class Post(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(60),nullable=False)
+    date_posted = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
+    content = db.Column(db.Text,nullable=False)
+    posts = db.relationship('Post',backref='author',lazy=False)
+    
+    def __repr__(self):
+        return f'User("{self.title}", "{self.date_posted}")'
 
-# Set the secret key for Flask-Session
-app.secret_key = os.urandom(24)
-
+class Task(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(60),nullable=False)
+    attempts = db.Column(db.Integer,default=0)
+    
+    def __repr__(self):
+        return f'User("{self.title}", "{self.attempts}")'
 
 # tasks menu you can add your tasks here 
 tasks = {
@@ -217,5 +229,3 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
-cursor.close()
-conn.close()
