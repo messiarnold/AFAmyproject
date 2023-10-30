@@ -26,3 +26,4 @@ commands for developers:
 7. לשלב את הbranch שלך: git merge "branch name"
 8. לשלוח סופית: git push
 9. תחזור לגיטהאב ותייצר את הבקשה
+
