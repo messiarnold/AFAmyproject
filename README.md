@@ -10,5 +10,3 @@ a auto feedback system to check students tasks automatically because it's taking
 6. switch to the master branch: git checkout master
 7. merge your branch to the master branch: git merge "your-branch-name"
 8. return to github and create a pull request
-9. commit suicide
-
