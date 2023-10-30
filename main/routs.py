@@ -1,48 +1,9 @@
+from flask import render_template, request, redirect, url_for, session, flash
+from main import app
 from functools import wraps
-from datetime import datetime 
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-from flask_sqlalchemy import *
-from forms import RegistrationForm, LoginForm
-
-from tests import *
-
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '84hfurh98fhwhe89ihds98yh93wh9dha8deh89weh9'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
-db = SQLAlchemy(app)
-
-class User(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
-    username = db.Column(db.String(20),unique=True,nullable=False)
-    email = db.Column(db.String(40),unique=True,nullable=False)
-    password = db.Column(db.String(60),nullable=False)
-    posts = db.relationship('Post',backref='author',lazy=False)
-    tasks = db.relationship('Task',backref='author',lazy=False)
-    
-    def __repr__(self):
-        return f'User("{self.username}", "{self.email}")'
-    
-class Post(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
-    title = db.Column(db.String(60),nullable=False)
-    date_posted = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
-    content = db.Column(db.Text,nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    
-    def __repr__(self):
-        return f'User("{self.title}", "{self.date_posted}")'
-
-class Task(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
-    title = db.Column(db.String(60),nullable=False)
-    attempts = db.Column(db.Integer,default=0)
-    success = db.Column(db.Integer,default=0)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    
-    def __repr__(self):
-        return f'User("{self.title}", "{self.attempts}")'
+from main.forms import RegistrationForm, LoginForm
+from main.models import User, Post, Task
+from main.tests import *
 
 # tasks menu you can add your tasks here 
 tasks = {
@@ -227,9 +188,3 @@ def about():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html"), 404
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
