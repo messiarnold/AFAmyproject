@@ -29,7 +29,7 @@
             <li class="underline"><a href="/class" {% if current == class %}  id = "current" {% endif  %} >class</a></li>
             <li class="right">
                 {% if current_user.is_authenticated %}
-                    <li><h2 href="">Welcome {{ current_user.username }}!</h2></li>
+                    <li><h2 href="" class="font-family-monospace text-l">Welcome {{ current_user.username }}!</h2></li>
                     <li class="circle-btn"><a href="/acount" ><i class="fa-solid fa-user fa-xs right-margin"></i>acount</a></li>
                 {% else %}
                     <li class="circle-btn"><a href="/login">Login</a></li>

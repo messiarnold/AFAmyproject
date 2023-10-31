@@ -347,6 +347,9 @@ input[type="submit"]{
 .line-height-xl{
     line-height: 3em;
 }
+.white-border{
+    border: 2px white solid;
+}
 .no-border{
     border: none;
 }
