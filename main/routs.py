@@ -1,9 +1,10 @@
 from flask import render_template, request, redirect, url_for, session, flash
-from main import app
+from main import app, db, bcrypt
 from functools import wraps
 from main.forms import RegistrationForm, LoginForm
 from main.models import User, Post, Task
 from main.tests import *
+from flask_login import login_user, current_user ,logout_user, login_required
 
 # tasks menu you can add your tasks here 
 tasks = {
@@ -64,68 +65,41 @@ tasks = {
     # Define more tasks here
 }
 
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            return redirect(url_for('login'))  # Redirect to login page if not logged in
-    return decorated_function
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data,email=form.email.data,password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
         return redirect(url_for('login'))
     return render_template('register.html',title='register',form=form,current='home')
-#def register():
-#    if request.method == 'POST':
-#        username = request.form['username']
-#        password = request.form['password']
-#        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-#
-#        # Use a parameterized query to insert data
-#        insert_query = "INSERT INTO users (username, password) VALUES (%s, %s)"
-#        data = (username, hashed_password)
-#
-#        cursor.execute(insert_query, data)
-#        conn.commit()
-#        
-#        flash('Your account has been created! You can now log in.', 'success')
-#        return redirect(url_for('login'))
-#    return render_template('register.html')
 
-# User login route
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user,remember=form.remember.data)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('home'))
     return render_template('login.html',title='Login',form=form,current='home')
-#def login():
-#    if request.method == 'POST':
-#        username = request.form['username']
-#        password = request.form['password']
-#
-#        # Use a parameterized query to fetch user data
-#        select_query = "SELECT * FROM users WHERE username = %s"
-#        data = (username,)
-#        cursor.execute(select_query, data)
-#        user = cursor.fetchone()
-#
-#        if user and bcrypt.check_password_hash(user[2], password):
-#            session['logged_in'] = True
-#            session['username'] = username 
-#            return redirect(url_for('home'))
-#        else:
-#            flash('Login failed. Please check your credentials.', 'danger')
-#
-#    return render_template('login.html',current = "home")
+
 
 # User logout route
 @app.route('/logout')
 def logout():
-    session.pop('logged_in', None)
-    return redirect(url_for('login'))
+    logout_user()
+    return redirect(url_for('home'))
 
 # home route
 @app.route("/")
@@ -183,6 +157,12 @@ def java_videos():
 def about():
     return render_template('about.html',current="about")
 
+
+# acount rout
+@app.route('/acount')
+@login_required
+def acount():
+    return render_template('acount.html',current="count",title='Acount')
 
 # error handler <page not found 404>
 @app.errorhandler(404)

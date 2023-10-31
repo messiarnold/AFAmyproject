@@ -28,8 +28,9 @@
             <li class="underline"><a href="/java" {% if current == "java" %}  id = "current" {% endif %} >Java</a></li>
             <li class="underline"><a href="/class" {% if current == class %}  id = "current" {% endif  %} >class</a></li>
             <li class="right">
-                {% if 'logged_in' in session %}
-                    <li><h2 href="">Welcome {{ session['username'] }}!</h2></li>
+                {% if current_user.is_authenticated %}
+                    <li><h2 href="">Welcome {{ current_user.username }}!</h2></li>
+                    <li class="login"><a href="/acount" ><i class="fa-solid fa-user fa-xs right-margin"></i>acount</a></li>
                 {% else %}
                     <li class="login"><a href="/login">Login</a></li>
                     <li class="login"><a href="/register">SignUp</a></li>
