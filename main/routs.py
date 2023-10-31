@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, flash
 from main import app, db, bcrypt
 from functools import wraps
-from main.forms import RegistrationForm, LoginForm
+from main.forms import RegistrationForm, LoginForm, UpdateAcountForm
 from main.models import User, Post, Task
 from main.tests import *
 from flask_login import login_user, current_user ,logout_user, login_required
@@ -67,6 +67,7 @@ tasks = {
 
 
 
+# register route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -78,9 +79,10 @@ def register():
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))
-    return render_template('register.html',title='register',form=form,current='home')
+    return render_template('register.html',title='Register',form=form,current='home')
 
 
+# login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -105,19 +107,19 @@ def logout():
 @app.route("/")
 @app.route('/home' )
 def home():
-    return render_template('home.html',current = "home")
+    return render_template('home.html',current = "home",title="Home")
 
 
 # python content route
 @app.route('/python')
 def python():
-    return render_template('python.html', current = "python",language = "python")
+    return render_template('python.html', current = "python",language = "python",title="Python")
 
 
 @app.route('/python/tasks', methods=['GET', 'POST'])
 # @login_required in a comment for development issues
 def tasks_page():
-    return render_template('tasks.html',tasks=tasks,current = "python")
+    return render_template('tasks.html',tasks=tasks,current = "python",title="Python")
 
 
 @app.route('/python/tasks/<task_name>', methods=['GET', 'POST'])
@@ -129,40 +131,41 @@ def task_page(task_name):
     if request.method == 'POST':
         code = request.form['code']
         feedback = task['test_function'](code)
-        return render_template('task.html', task=task, code=code, feedback=feedback, task_progress=task_progress[task_name],current = "python")
+        return render_template('task.html', task=task, code=code, feedback=feedback, task_progress=task_progress[task_name],current = "python",title="Python")
 
-    return render_template('task.html', task=task,task_progress=task_progress[task_name],current = "python")
+    return render_template('task.html', task=task,task_progress=task_progress[task_name],current = "python",title="Python")
 
 
 # python videos route
 @app.route('/python/videos')
 def python_videos():
-    return render_template('videos_python.html',current = "python")
+    return render_template('videos_python.html',current = "python",title="Python")
 
 
 # java route 
 @app.route('/java')
 def java():
-    return render_template('java.html',current = "java",language="java")
+    return render_template('java.html',current = "java",language="java",title="Java")
 
 
 # java videos route 
 @app.route('/java/videos')
 def java_videos():
-    return render_template('videos_java.html',current = "java")
+    return render_template('videos_java.html',current = "java",title="Java")
 
 
 # about route
 @app.route('/about')
 def about():
-    return render_template('about.html',current="about")
+    return render_template('about.html',current="about",title="About")
 
 
 # acount rout
 @app.route('/acount')
 @login_required
 def acount():
-    return render_template('acount.html',current="count",title='Acount')
+    form = UpdateAcountForm()
+    return render_template('acount.html',current="count",form=form,title='Acount')
 
 # error handler <page not found 404>
 @app.errorhandler(404)

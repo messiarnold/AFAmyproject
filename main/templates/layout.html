@@ -6,7 +6,11 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" href="icon.svg" id="icon">
     <script src="https://kit.fontawesome.com/c6455e8c9a.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>AFA</title>
+    {% endif %}
 </head>
 <body>
     <!-- header section -->
@@ -29,7 +33,7 @@
             <li class="underline"><a href="/class" {% if current == class %}  id = "current" {% endif  %} >class</a></li>
             <li class="right">
                 {% if current_user.is_authenticated %}
-                    <li><h2 href="" class="font-family-monospace text-l">Welcome {{ current_user.username }}!</h2></li>
+                    <li><h2 href="" class="font-family-monospace text-m">Welcome {{ current_user.username }}!</h2></li>
                     <li class="circle-btn"><a href="/acount" ><i class="fa-solid fa-user fa-xs right-margin"></i>acount</a></li>
                 {% else %}
                     <li class="circle-btn"><a href="/login">Login</a></li>

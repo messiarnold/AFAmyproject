@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20),unique=True,nullable=False)
     email = db.Column(db.String(40),unique=True,nullable=False)
     password = db.Column(db.String(60),nullable=False)
+    is_teacher = db.Column(db.Integer,default=0)
     posts = db.relationship('Post',backref='author',lazy=False)
     tasks = db.relationship('Task',backref='author',lazy=False)
     

@@ -3,5 +3,25 @@
 <div class="white-border container container-larger-width text-left line-height-xl font-family-monospace">
     <h1>User name:  {{ current_user.username }}</h1>
     <h1>Email: {{ current_user.email }}</h1>
+    <div class="content-section content-section-update">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="no-border">
+                <h2 class="text-center">Acount info</h2>
+                <br>
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label text-m")}}
+                    {{ form.username(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label text-m")}}
+                    {{ form.email(class="form-control")}}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-center")}}
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
