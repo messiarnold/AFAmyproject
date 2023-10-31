@@ -30,10 +30,10 @@
             <li class="right">
                 {% if current_user.is_authenticated %}
                     <li><h2 href="">Welcome {{ current_user.username }}!</h2></li>
-                    <li class="login"><a href="/acount" ><i class="fa-solid fa-user fa-xs right-margin"></i>acount</a></li>
+                    <li class="circle-btn"><a href="/acount" ><i class="fa-solid fa-user fa-xs right-margin"></i>acount</a></li>
                 {% else %}
-                    <li class="login"><a href="/login">Login</a></li>
-                    <li class="login"><a href="/register">SignUp</a></li>
+                    <li class="circle-btn"><a href="/login">Login</a></li>
+                    <li class="circle-btn"><a href="/register">SignUp</a></li>
                 {% endif %}
                 <li><a href=""><img class="logo" src="../../static/logo.svg" width="160" height="40"></a></li>
             </li>

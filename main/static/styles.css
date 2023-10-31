@@ -15,36 +15,6 @@ header{
 #current{
     color: #3a8ba1;
 }
-.no-border{
-    border: none;
-}
-.right-margin{
-    margin-right: 10px;
-}
-.btn-center{
-    margin: 0 auto;
-}
-.text-center{
-    text-align: center;
-}
-.text-xxl{
-    font-size: 4em;
-}
-.text-xl{
-    font-size: 3em;
-}
-.text-l{
-    font-size: 2.2em;
-}
-.text-m{
-    font-size: 1.4em;
-}
-.text-s{
-    font-size: 0.8em;
-}
-.text-xs{
-    font-size: 0.4em;
-}
 
 /* header navbar style */
 .navbar{
@@ -94,27 +64,30 @@ li.underline a{
 }
 
 
-/* login style */
-.login{
+/* circle-btn style */
+.circle-btn{
     border: 2px white solid;
     border-radius: 25px;
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
 }
-.login a:hover{
+.circle-btn a:hover{
     color: #55caea;
 }
-.login:hover{
+.circle-btn:hover{
     border-color: #3a8ba1;
 }
 
 /* login container style */
+.container-larger-width{
+    width: 60%;
+    max-width: none;
+}
 .container {
     background-color: #ffffff27;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -369,3 +342,47 @@ input[type="submit"]{
     margin-top: 10px;
 }
 
+
+/* my frame work classes */
+.line-height-xl{
+    line-height: 3em;
+}
+.no-border{
+    border: none;
+}
+.right-margin{
+    margin-right: 10px;
+}
+.btn-center{
+    margin: 0 auto;
+}
+.text-left{
+    text-align: left;
+}
+.text-center{
+    text-align: center;
+}
+.text-xxl{
+    font-size: 4em;
+}
+.text-xl{
+    font-size: 3em;
+}
+.text-l{
+    font-size: 2.2em;
+}
+.text-m{
+    font-size: 1.4em;
+}
+.text-s{
+    font-size: 0.8em;
+}
+.text-xs{
+    font-size: 0.4em;
+}
+a:hover {
+    color: #0056b3;
+}
+.font-family-monospace{
+    font-family: monospace;
+}

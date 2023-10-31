@@ -1,4 +1,7 @@
 {% extends 'layout.html'%}
 {% block content %}
-    <h1 style="margin-top: 100px;">{{ current_user.username }}</h1>
+<div class="container container-larger-width text-left line-height-xl">
+    <h1>User name:  {{ current_user.username }}</h1>
+    <h1>Email: {{ current_user.email }}</h1>
+</div>
 {% endblock %}

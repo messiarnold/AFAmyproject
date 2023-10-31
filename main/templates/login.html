@@ -1,26 +1,10 @@
 {% extends 'layout.html'%}
 {% block content %}
-<!-- <div class="container">
-    <h1>Login</h1>
-    <form method="POST" action="/login">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <br>
-        <button type="submit">Login</button>
-    </form>
-    <br>
-    <p>Don't have an account? <a href="/register">Register here</a></p>
-</div> -->
 <div class="content-section">
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="no-border">
-            <h2 class="text-center">Join now!</h2>
+            <h2 class="text-center font-family-monospace">Join now!</h2>
             <br>
             <div class="form-group">
                 {{ form.email.label(class="form-control-label text-m")}}
