@@ -1,0 +1,19 @@
+{% extends 'layout.html'%}
+{% block content %}
+<div class="container posts-container container-xlarger-width">
+    <button class="create-post-btn">
+        <a href="/posts/create">create new post</a>
+    </button>
+    <br>
+    <br>
+    <div class="posts">
+        {% for post in posts %}
+        <div class="post-container">
+            <p class="date-time">by {{post.author.username}} on {{post.date_posted.strftime("%d-%m-%Y")}}</p>
+            <h2 class="text-left"><a href="{{ url_for('post',post_id=post.id)}}">{{post.title}}</a></h2>
+            <p >{{post.content}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

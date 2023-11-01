@@ -1,0 +1,18 @@
+{% extends 'layout.html'%}
+{% block content %}
+<div class="container posts-container container-xlarger-width container-post-update">
+    {% if post.author == current_user %}
+    <button class="create-post-btn"><a  href="{{url_for('update',post_id=post.id)}}">Update post</a></button>
+    <button class="create-post-btn"><a  href="{{url_for('delete',post_id=post.id)}}">Delete post</a></button>
+    {% endif %}
+    <br>
+    <br>
+    <div class="posts">
+        <div class="post-container">
+            <p class="date-time">by {{post.author.username}} on {{post.date_posted.strftime("%d-%m-%Y")}}</p>
+            <h2 class="text-left">{{post.title}}</h2>
+            <p >{{post.content}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

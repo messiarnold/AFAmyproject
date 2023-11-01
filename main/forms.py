@@ -43,3 +43,9 @@ class UpdateAcountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken')
+            
+class CreatePostForm(FlaskForm):
+    title = StringField('Title:', validators=[DataRequired(),Length(min=3,max=20)])
+    content = StringField('Content:', validators=[DataRequired(),Length(min=10,max=400)])
+    submit = SubmitField('Create')
+    

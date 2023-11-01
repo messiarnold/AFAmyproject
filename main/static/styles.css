@@ -80,6 +80,10 @@ li.underline a{
 }
 
 /* login container style */
+.container-xlarger-width{
+    width: 90%;
+    max-width: none;
+}
 .container-larger-width{
     width: 60%;
     max-width: none;
@@ -346,6 +350,53 @@ input[type="submit"]{
 .form-check{
     margin-top: 10px;
 }
+
+
+/* posts page */
+.create-post-btn{
+    float: left;
+    margin: 30px;
+}
+
+.create-post-btn a{
+    color: white;
+}
+
+.create-post-btn a:hover{
+    color: white;
+    opacity: 60%;
+}
+
+.posts{
+    min-height: 200px;
+}
+
+.post-container{
+    margin: 30px;
+    margin-top: 50px;
+    display: block;
+    text-align: left;
+    padding: 30px;
+    border: 2px white solid;
+    border-radius: 10px;
+    max-width: 60%;
+}
+
+.post-container h2 a{
+    color: white;
+    transition: color 0.5s;
+}
+.post-container h2 a:hover{
+    color: #007BFF;
+}
+
+.post-container .date-time{
+    display: inline-block;
+    color: white;
+    border-bottom: 2px white solid;
+    padding-bottom: 5px;
+}
+
 
 
 /* my frame work classes */

@@ -1,7 +1,7 @@
-from flask import render_template, request, redirect, url_for, session, flash
+from flask import render_template, request, redirect, url_for, session, flash , abort
 from main import app, db, bcrypt
 from functools import wraps
-from main.forms import RegistrationForm, LoginForm, UpdateAcountForm
+from main.forms import RegistrationForm, LoginForm, UpdateAcountForm, CreatePostForm
 from main.models import User, Post, Task
 from main.tests import *
 from flask_login import login_user, current_user ,logout_user, login_required
@@ -153,6 +153,61 @@ def java():
 def java_videos():
     return render_template('videos_java.html',current = "java",title="Java")
 
+# posts route
+@app.route('/posts')
+def posts():
+    posts = Post.query.all()
+    return render_template('posts.html',current="posts",title="Posts",posts=reversed(posts))
+
+# create posts route
+@app.route('/posts/create',methods=['GET','POST'])
+@login_required
+def create_posts():
+    form = CreatePostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data,content=form.content.data,author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for("posts"))
+    return render_template('create_post.html',current="posts",title="Posts",form=form,posts=posts,legend='Create Post')
+
+
+# post id route
+@app.route('/posts/<int:post_id>')
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html',title=post.title,post=post)
+
+# post id route
+@app.route('/posts/<int:post_id>/update',methods=['GET','POST'])
+@login_required
+def update(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = CreatePostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        return redirect(url_for('post',post_id = post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('create_post.html',title='Update post',form=form,legend='Update Post')
+
+
+# delete route
+@app.route('/posts/<int:post_id>/delete',methods=['GET','POST'])
+@login_required
+def delete(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('posts'))
+    
 
 # about route
 @app.route('/about')
@@ -161,11 +216,19 @@ def about():
 
 
 # acount rout
-@app.route('/acount')
+@app.route('/acount',methods=['GET','POST'])
 @login_required
 def acount():
     form = UpdateAcountForm()
-    return render_template('acount.html',current="count",form=form,title='Acount')
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        return redirect(url_for('acount'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('acount.html',current="acount",form=form,title='Acount')
 
 # error handler <page not found 404>
 @app.errorhandler(404)

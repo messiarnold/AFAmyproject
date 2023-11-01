@@ -30,7 +30,7 @@
             <li class="underline"><a href="/about" {% if current  ==  "about"%}  id = "current"{% endif %}>About</a></li>
             <li class="underline"><a href="/python" {% if current == "python" %}  id = "current" {% endif %} >Python</a></li>
             <li class="underline"><a href="/java" {% if current == "java" %}  id = "current" {% endif %} >Java</a></li>
-            <li class="underline"><a href="/class" {% if current == class %}  id = "current" {% endif  %} >class</a></li>
+            <li class="underline"><a href="/posts" {% if current == "posts" %}  id = "current" {% endif  %} >posts</a></li>
             <li class="right">
                 {% if current_user.is_authenticated %}
                     <li><h2 href="" class="font-family-monospace text-m">Welcome {{ current_user.username }}!</h2></li>
