@@ -9,9 +9,9 @@
     <br>
     <div class="posts">
         <div class="post-container">
-            <p class="date-time">by {{post.author.username}} on {{post.date_posted.strftime("%d-%m-%Y")}}</p>
+            <p class="date-time">by <a href="{{ url_for('user_posts',username=post.author.username)}}">{{post.author.username}}</a> on {{post.date_posted.strftime("%d-%m-%Y")}}</p>
             <h2 class="text-left">{{post.title}}</h2>
-            <p >{{post.content}}</p>
+            <p class="posts-content text-m">{{post.content}}</p>
         </div>
     </div>
 </div>

@@ -1,6 +1,5 @@
 from flask import render_template, request, redirect, url_for, session, flash , abort
 from main import app, db, bcrypt
-from functools import wraps
 from main.forms import RegistrationForm, LoginForm, UpdateAcountForm, CreatePostForm
 from main.models import User, Post, Task
 from main.tests import *
@@ -156,8 +155,9 @@ def java_videos():
 # posts route
 @app.route('/posts')
 def posts():
-    posts = Post.query.all()
-    return render_template('posts.html',current="posts",title="Posts",posts=reversed(posts))
+    page = request.args.get('page',1,type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
+    return render_template('posts.html',current="posts",title="Posts",posts=posts)
 
 # create posts route
 @app.route('/posts/create',methods=['GET','POST'])
@@ -178,7 +178,7 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html',title=post.title,post=post)
 
-# post id route
+# post update route
 @app.route('/posts/<int:post_id>/update',methods=['GET','POST'])
 @login_required
 def update(post_id):
@@ -207,7 +207,15 @@ def delete(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('posts'))
-    
+
+
+# posts route
+@app.route('/user/<string:username>')
+def user_posts(username):
+    page = request.args.get('page',1,type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
+    return render_template('user_posts.html',current="posts",title="Posts",posts=posts,user=user)
 
 # about route
 @app.route('/about')

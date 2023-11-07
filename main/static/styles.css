@@ -382,6 +382,11 @@ input[type="submit"]{
     max-width: 60%;
 }
 
+.post-container h2{
+    font-size: 2em;
+    margin-top: 10px;
+}
+
 .post-container h2 a{
     color: white;
     transition: color 0.5s;
@@ -397,7 +402,32 @@ input[type="submit"]{
     padding-bottom: 5px;
 }
 
+.posts-container{
+    margin-bottom: 100px;
+}
 
+/* pagination links */
+.pagination-links{
+    color: white;
+    border: 2px white solid;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    margin-top: 30px;
+    font-size: 1.6em;
+    font-family: monospace;
+}
+.pagination-links-current{
+    background-color: black;
+}
+
+.posts h1{
+    margin-left: 100px;
+}
+
+.posts-content{
+    margin-top: 15px;
+}
 
 /* my frame work classes */
 .line-height-xl{
