@@ -1,9 +1,10 @@
 from flask import render_template, request, redirect, url_for, session, flash , abort
-from main import app, db, bcrypt
-from main.forms import RegistrationForm, LoginForm, UpdateAcountForm, CreatePostForm
+from main import app, db, bcrypt, mail
+from main.forms import RegistrationForm, LoginForm, UpdateAcountForm, CreatePostForm , RequestResetForm, ResetPasswordForm
 from main.models import User, Post, Task
 from main.tests import *
 from flask_login import login_user, current_user ,logout_user, login_required
+from flask_mail import Message
 
 # tasks menu you can add your tasks here 
 tasks = {
@@ -101,6 +102,45 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+
+def send_reset_email(user):
+    print("email sensed")
+    print(user.email)
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request', sender='AFAautofeedbackproject@gmail.com',recipients=[user.email])
+    msg.body = f"""To reset your password, visit the following link:
+{url_for('reset_token',token=token,_external=True)}
+"""
+    mail.send(msg)
+    
+# User Reset  route
+@app.route('/reset_password',methods=['GET','POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        return redirect(url_for('login'))
+    return render_template('reset_request.html',current = "home",title="Reset Password",form=form)
+
+# User Reset route
+@app.route('/reset_password/<token>',methods=['GET','POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('reset_token.html',current = "home",title="Reset Password",form=form)
 
 # home route
 @app.route("/")

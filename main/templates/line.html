@@ -1,12 +1,38 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div class="home_main_text">
-        <h1>"Learn coding bla <br>bla bla bla"</h1>
-        <a href="/register"><button type="submit">Sign Up</button></a>
-    </div>
-    <section id="section1" class="try-section">Section 1</section>
-    <section id="section2" class="try-section">Section 2</section>
-    <section id="section3" class="try-section">Section 3</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        svg {
+            position: fixed;
+            top: 0;
+            right: 20%;
+            display: inline-block;
+        }
+    </style>
+    <title>Scroll Drawing Line</title>
+</head>
+<body>
+    <section id="section1">Section 1</section>
+    <section id="section2">Section 2</section>
+    <section id="section3">Section 3</section>
 
     <!-- SVG line element -->
     <svg id="drawing-line" width="4" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -39,4 +65,5 @@
             });
         });
     </script>
-{% endblock %}
+</body>
+</html>

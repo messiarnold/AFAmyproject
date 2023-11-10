@@ -1,0 +1,24 @@
+{% extends 'layout.html'%}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="no-border">
+            <h2 class="text-center font-family-monospace">Reset Password</h2>
+            <br>
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label text-m")}}
+                {{ form.password(class="form-control")}}
+            </div>
+            <div class="form-group">
+                {{ form.confirm_password.label(class="form-control-label text-m")}}
+                {{ form.confirm_password(class="form-control")}}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-center")}}
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

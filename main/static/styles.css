@@ -5,6 +5,25 @@
     color: white;
 }
 
+
+.try-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+}
+
+#drawing-line {
+    position: fixed;
+    top: 0;
+    right: 20%;
+    display: inline-block;
+    z-index: -1;
+}
+
+
+
 /* main sections */
 body{
     background-color: rgba(0, 0, 0, 0.950);
