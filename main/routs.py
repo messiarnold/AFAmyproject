@@ -44,16 +44,16 @@ tasks = {
         'instructions': 'Write code for Task 2.4: ...',
         'description' : "משתנים, קלט ופלט",
     },
+    'task_3': {
+        'title': 'Task 3',
+        'test_function': evaluate_task_3,
+        'instructions': 'Write code for Task 3: ...',
+        'description' : "פונקציות",
+    },
     'task_13': {
         'title': 'Task 13',
         'test_function': evaluate_task_13,
         'instructions': 'Write code for Task 13: ...',
-        'description' : "learn this also bla bla bla now!",
-    },
-    'task_3': {
-        'title': 'Task 3',
-        'test_function': evaluate_task_13,
-        'instructions': 'Write code for Task 2: ...',
         'description' : "learn this also bla bla bla now!",
     },
     'task_12': {

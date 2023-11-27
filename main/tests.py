@@ -8,6 +8,7 @@ task_progress = {
     'task_2.2':0,
     'task_2.3':0,
     'task_2.4':0,
+    'task_3':0,
     'task_12': 0,  
     'task_13': 0,  
 }
@@ -172,6 +173,62 @@ def evaluate_task_2_4(code):
         else:
             feedback = 'שגיאה בעת הרצת הקוד'
             task_progress['task_2.4'] = 0
+    return feedback
+
+def evaluate_task_3(code):
+    try:
+        feedback = check_for_input_and_empty_code(code,'task_3')
+        if feedback != '':
+            return feedback
+        else:
+            exec_globals = {}
+            exec_locals = {}
+            exec(code, exec_globals, exec_locals)
+
+            if 'calculate_average' in code:
+                result_average = exec_locals['calculate_average'](4,2)
+                print(result_average)
+                feedback = f"Average result: {result_average}"
+                if '4' in str(result_average):
+                    feedback = 'הצלחת במשימה'
+                    task_progress['task_3'] = 100
+                else:
+                    feedback = ''
+            else:
+                feedback = "אין לך בקוד פונקציית ממוצע או שלא קראת לה בשם הנכון"
+                task_progress['task_3'] = 0
+    except SyntaxError as e:
+        feedback = "יש לך טעות בכתיבה של הקוד"
+        task_progress['task_3'] = 0
+    except Exception as e:
+        feedback = f"Error: {str(e)}\n{print(e)}"
+    return feedback
+            
+def evaluate_task_3_1(code):
+    try:
+        feedback = check_for_input_and_empty_code(code,'task_3')
+        if feedback != '':
+            return feedback
+        else:
+            exec_globals = {}
+            exec_locals = {}
+            exec(code, exec_globals, exec_locals)
+            not_in_code = []
+            if "print_strings_together" not in code:
+                not_in_code.append("print_strings_together" + "\n")
+            if "next_fibonacci_num" not in code:
+                not_in_code.append("next_fibonacci_num" + "\n")
+            if "return_2" not in code:
+                not_in_code.append("return_2" + "\n")
+            if not_in_code == []:
+                pass
+            else:
+                feedback = f"אין לך בקוד את הפןנקציות הבאות\n {[func for func in not_in_code]}"
+    except SyntaxError as e:
+        feedback = "יש לך טעות בכתיבה של הקוד"
+        task_progress['task_3'] = 0
+    except Exception as e:
+        feedback = f"Error: {str(e)}\n{print(e)}"
     return feedback
             
 def evaluate_task_12(code):
